@@ -7,7 +7,9 @@ import type { NextRequest } from 'next/server'
 //in our case we will use redirect
 //req is the incoming request from the client (nextjs)
 export async function middleware(request: NextRequest) {
- const token = await getToken({req : request})
+ const cookieName = process.env.NODE_ENV === 'production'
+ ? '__Secure-next-auth.session-token' :'next-auth.session-token' 
+  const token = await getToken({req : request, cookieName})
  if (!token) {
     // Only redirect to /login if not already there (to prevent loop)
     if (request.nextUrl.pathname !== '/login' && request.nextUrl.pathname !== '/register') {

@@ -18,3 +18,4 @@ export async function getUserToken() {
 
   return decoded!.token;
 }
+``
